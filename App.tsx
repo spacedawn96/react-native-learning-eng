@@ -9,9 +9,9 @@ import Navigation from "./navigation";
 import { Provider } from "react-redux";
 import store from "./store/store";
 
-import HomeScreen from "./components/Header/BaseIcon";
+import HomeScreen from "./components/base/BaseIcon";
 
-import NotificationsScreen from "./components/Header/Nav";
+import NotificationsScreen from "./components/base/Nav";
 
 export default function App() {
   const isLoadingComplete = useCachedResources();

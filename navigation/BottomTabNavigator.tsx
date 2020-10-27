@@ -1,14 +1,15 @@
-import { Ionicons } from '@expo/vector-icons';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createStackNavigator } from '@react-navigation/stack';
-import * as React from 'react';
+import { Ionicons, Entypo, EvilIcons } from "@expo/vector-icons";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createStackNavigator } from "@react-navigation/stack";
+import * as React from "react";
+import Colors from "../constants/Colors";
+import useColorScheme from "../hooks/useColorScheme";
+import Main from "../screens/Main/Main";
+import TabTwoScreen from "../screens/TabTwoScreen";
+import { BottomTabParamList, TabOneParamList, TabTwoParamList } from "../types";
 
-import Colors from '../constants/Colors';
-import useColorScheme from '../hooks/useColorScheme';
-import Main from '../screens/Main/Main';
-import TabTwoScreen from '../screens/TabTwoScreen';
-import { BottomTabParamList, TabOneParamList, TabTwoParamList } from '../types';
-import { Entypo } from '@expo/vector-icons';
+import { Text } from "../components/Themed";
+import Search from "../components/search/Search";
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -48,6 +49,10 @@ function TabBarIcon(props: { name: string; color: string }) {
   return <Ionicons size={30} style={{ marginBottom: -3 }} {...props} />;
 }
 
+const HeaderBackButton = (props: { name: string; color: string }) => {
+  return <EvilIcons size={30} style={{ marginRight: 10 }} {...props} />;
+};
+
 // Each tab has its own navigation stack, you can read more about this pattern here:
 // https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
 const TabOneStack = createStackNavigator<TabOneParamList>();
@@ -58,7 +63,13 @@ function TabOneNavigator() {
       <TabOneStack.Screen
         name="TabOneScreen"
         component={Main}
-        options={{ headerTitle: 'News' }}
+        options={{
+          headerTitle: "News",
+          headerLeft: (props) => <Search />,
+          headerRight: (props) => (
+            <HeaderBackButton name="search" color={"black"} />
+          ),
+        }}
       />
     </TabOneStack.Navigator>
   );
@@ -72,7 +83,7 @@ function TabTwoNavigator() {
       <TabTwoStack.Screen
         name="TabTwoScreen"
         component={TabTwoScreen}
-        options={{ headerTitle: 'Tab Two Title' }}
+        options={{ headerTitle: "Tab Two Title" }}
       />
     </TabTwoStack.Navigator>
   );
